@@ -2,12 +2,12 @@
 #include<stdlib.h>
 #include<string.h>
 
-#define M    541        /* Table size hesaplanırken sözlükteki eleman sayısı 338, genel doluluk 
-oranı da 0,6 olarak alındı. 343/0.65 = 527 işleminden, tablo boyutu bu değerden büyük en küçük asal sayı olan
-541 alındı.*/  
-#define MM   540        // M-1 olarak alındı
+#define M    541        /* Table size hesaplanÄ±rken sÃ¶zlÃ¼kteki eleman sayÄ±sÄ± 338, genel doluluk 
+oranÄ± da 0,6 olarak alÄ±ndÄ±. 343/0.65 = 527 iÅŸleminden, tablo boyutu bu deÄŸerden bÃ¼yÃ¼k en kÃ¼Ã§Ã¼k asal sayÄ± olan
+541 alÄ±ndÄ±.*/  
+#define MM   540        // M-1 olarak alÄ±ndÄ±
 
-int KelimeSayisiBul() //Dosyadaki kelimeleri tek tek oku ve toplam kelime syısını döndür.
+int KelimeSayisiBul() //Dosyadaki kelimeleri tek tek oku ve toplam kelime syÄ±sÄ±nÄ± dÃ¶ndÃ¼r.
 {
     int count;char ch[25];     
     FILE *fp=fopen("smallDictionary.txt","r");
@@ -23,9 +23,9 @@ int KelimeSayisiBul() //Dosyadaki kelimeleri tek tek oku ve toplam kelime syısın
     else
     printf("File is not found");
     fclose(fp);    
-    return count; //Kelime sayısını döndür
+    return count; //Kelime sayÄ±sÄ±nÄ± dÃ¶ndÃ¼r
 }
-int findKey(char word[]) //Her kelime için bir Key değeri hesapla
+int findKey(char word[]) //Her kelime iÃ§in bir Key deÄŸeri hesapla
 {
     int HashKey=0;
     int i;
@@ -36,7 +36,7 @@ int findKey(char word[]) //Her kelime için bir Key değeri hesapla
     return HashKey;
 }
 
-int findIndex(int HashKey,int i) // DoubleHashing ile kelimeye ait bir hash değeri hesaplanıyor
+int findIndex(int HashKey,int i) // DoubleHashing ile kelimeye ait bir hash deÄŸeri hesaplanÄ±yor
 {
     int h1=HashKey%M;
     int h2=1+(HashKey%MM);
@@ -50,7 +50,7 @@ int searchInHashTable(char hashTable[][25],char searchWord[]) //Kelimeyi hash ta
     int hashIndex;
     
     do /*Kelimeye ait indeksi bul ve tabloda o index dolu bak! Dolu ise aranan kelime mi; 
-	değilse bir sonraki indise bak. Boş görene kadar bakmaya devam et*/
+	deÄŸilse bir sonraki indise bak. BoÅŸ gÃ¶rene kadar bakmaya devam et*/
     {
         hashIndex=findIndex(key,i);    
         if(!strcmp(hashTable[hashIndex],searchWord))   
@@ -72,10 +72,10 @@ int searchInHashTable(char hashTable[][25],char searchWord[]) //Kelimeyi hash ta
 	return -1;                        
 }
 
-void createHashTable(char hashTable[][25],char wordArray[][25],int wordCount) // Hash tablosunu oluştur.
-/*Tabloyu oluştururken kelimenin key değerini hesapla
-Hesaplanan key değerine göre indis değeri bul
-Bulunan indis boş ise kelimeyi yerleştir dolu ise bir sonraki indise bak. Boş görene kadar devam et. */
+void createHashTable(char hashTable[][25],char wordArray[][25],int wordCount) // Hash tablosunu oluÅŸtur.
+/*Tabloyu oluÅŸtururken kelimenin key deÄŸerini hesapla
+Hesaplanan key deÄŸerine gÃ¶re indis deÄŸeri bul
+Bulunan indis boÅŸ ise kelimeyi yerleÅŸtir dolu ise bir sonraki indise bak. BoÅŸ gÃ¶rene kadar devam et. */
 {
     int i,k;
     for(i=0;i<wordCount;i++)
@@ -98,10 +98,10 @@ Bulunan indis boş ise kelimeyi yerleştir dolu ise bir sonraki indise bak. Boş gö
         hashTable[indis][k]='\0';
     }
 }
-void kelimeOneri(char hashTable[][25],char searchWord[]) // Kelime önerilerine bak!
+void kelimeOneri(char hashTable[][25],char searchWord[]) // Kelime Ã¶nerilerine bak!
 {
-	// Girilen kelimenin sıra ile her harfini değiştir ve değiştirilen kelime hash tablosunda var mı bak!
-	//Varsa öneri olarak ekrana yaz. Yoksa kelime önerisi yoktur!
+	// Girilen kelimenin sÄ±ra ile her harfini deÄŸiÅŸtir ve deÄŸiÅŸtirilen kelime hash tablosunda var mÄ± bak!
+	//Varsa Ã¶neri olarak ekrana yaz. Yoksa kelime Ã¶nerisi yoktur!
     int a,b,index;
     char temp;
     for(a=0;a<strlen(searchWord);a++)
@@ -123,10 +123,10 @@ void kelimeOneri(char hashTable[][25],char searchWord[]) // Kelime önerilerine b
 
 int main(void)
 {
-	int hashBoyutu=	KelimeSayisiBul(); //Dosyayı oku ve kelime sayısını bul
+	int hashBoyutu=	KelimeSayisiBul(); //DosyayÄ± oku ve kelime sayÄ±sÄ±nÄ± bul
 	printf("Kelime sayisi: %d\n",hashBoyutu);
-	char wordArray[hashBoyutu][25]; // Bulunan kelime sayısına göre matris oluştur. 
-									//Satırlar kelimeleri sütunlar o kelimenin uzunluğunu bul!
+	char wordArray[hashBoyutu][25]; // Bulunan kelime sayÄ±sÄ±na gÃ¶re matris oluÅŸtur. 
+									//SatÄ±rlar kelimeleri sÃ¼tunlar o kelimenin uzunluÄŸunu bul!
 	FILE *fp=fopen("smallDictionary.txt","r"); //Kelimeleri oku ve diziye at.
     if(fp != NULL)
     {
